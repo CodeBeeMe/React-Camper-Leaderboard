@@ -1,0 +1,147 @@
+/* !Date:19.03.2018 Copyright ©2018 SCSS code by Cătălin Anghel-Ursu @Madness2aMaze (https://codepen.io/Madness2aMaze)
+- All Rights Reserved!
+
+MIT License
+
+Copyright (c) 2018 Cătălin Anghel-Ursu (https://github.com/Madness2aMaze/Camper-Leaderboard)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. */
+
+@mixin radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($x, $y, $blur, $c) { 
+  -webkit-box-shadow: $x $y $blur $c;
+  -moz-box-shadow: $x $y $blur $c;
+  -ms-box-shadow: $x $y $blur $c;
+  box-shadow: $x $y $blur $c;
+}
+
+body {
+  font-family: 'Oxygen Mono', monospace;
+  background-color: #494949;
+}
+
+#title {
+  width: 350px;
+  background-color: #066300;
+  @include radius(25px);
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  margin: 0 auto;
+  opacity: .9;
+  @include box-shadow(0px, 1px, 1px, #222);
+  transition: .2s;
+}
+
+#title:hover {
+  opacity: 1;
+  transition: .2s;
+}
+
+.logo {
+  margin-left: 30px;
+  transition: .3s;
+}
+
+.logo:hover {
+  transition: .3s;
+}
+
+.table-responsive {
+  margin-top: 100px;
+}
+
+.header {
+  @include radius(25px);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-color: #066300;  
+  h1 {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+.footer {
+  @include radius(25px);
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background-color: #066300;
+  padding: 10px;
+  padding-top: 15px;
+  @include box-shadow(0px, 1px, 1px, #222);
+  h1 {    
+    text-align: center;
+    font-size: 12px;
+  }
+  margin-bottom: 50px;
+}
+
+
+.table {
+  color: #a5a5a5;
+  margin: 0 auto;
+  th, td {
+    text-align: center;
+    line-height: 40px;
+  }  
+}
+
+.img-head {
+  float: left;
+  width: 40px;
+  height: 40px;
+  @include radius(50%);
+  opacity: 1;
+  transition: .3s;
+}
+
+#names {
+  text-align: left;  
+}
+
+img {
+  margin-right: 15px;
+}
+
+a {
+  color: #099600;
+  transition: .2s;
+}
+
+a:hover {
+  color: #0bcc00;
+  text-decoration: none;
+  transition: .2s;
+}
+
+::-webkit-scrollbar {
+  background: #494949;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #066300;
+  @include radius(5px);
+}
