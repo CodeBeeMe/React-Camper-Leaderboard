@@ -39,7 +39,7 @@ SOFTWARE. */
 
 body {
   font-family: 'Oxygen Mono', monospace;
-  background-color: #494949;
+  transition: .5s;
 }
 
 #title {
@@ -68,19 +68,19 @@ body {
   transition: .3s;
 }
 
-.table-responsive {
-  margin-top: 100px;
-}
 
 .header {
+  margin-top: 100px;
   @include radius(25px);
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  background-color: #066300;  
+  background-color: #066300;
+  opacity: .9;
   h1 {
     margin: 0 auto;
     text-align: center;
-  }
+    transition: .5s;
+  }  
 }
 
 .footer {
@@ -89,9 +89,10 @@ body {
   border-top-right-radius: 0px;
   background-color: #066300;
   padding: 10px;
-  padding-top: 15px;
   @include box-shadow(0px, 1px, 1px, #222);
-  h1 {    
+  opacity: .9;
+  h1 {
+    margin-top: 7px;
     text-align: center;
     font-size: 12px;
   }
@@ -105,7 +106,8 @@ body {
   th, td {
     text-align: center;
     line-height: 40px;
-  }  
+  }
+  transition: .5s;
 }
 
 .img-head {
@@ -144,4 +146,78 @@ a:hover {
 ::-webkit-scrollbar-thumb {
   background: #066300;
   @include radius(5px);
+}
+
+.toggle {
+  float: right;
+  margin-right: 30px;
+}
+
+.switch {
+  margin: 0 auto;
+  padding: 2px;
+  margin-top: 15px;
+  width: 50px;
+  height: 20px;
+  @include radius(50px);
+  box-shadow: inset 1px 1px 3px 0px #333;  
+  transition: .5s;
+}
+
+.knob {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #066300;
+  box-shadow: 2px 2px 7px 0px #111;
+}
+
+.fa-moon {
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0 auto;
+  margin-right: 3px;
+  margin-top: 20px;
+  transition: .5s;
+}
+
+.fa-sun {
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 auto;
+  margin-left: 3px;
+  margin-top: 17px;
+  transition: .5s;
+}
+
+.slide-r {
+  animation: slideRight ease 0.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  100% {
+    transform: translate(30px, 0px);
+  }
+}
+
+.slide-l {
+  animation: slideLeft ease 0.5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translate(30px, 0px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
 }
