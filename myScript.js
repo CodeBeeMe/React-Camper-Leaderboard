@@ -35,20 +35,28 @@ const TITLE = (
 ReactDOM.render(TITLE, document.getElementById("title"));
 
 
-
 class Leaderboards extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoaded: false,
+    this.state = {      
       link: "https://fcctop100.herokuapp.com/api/fccusers/top/recent",
-      allTime: { color: "#a5a5a5", cursor: "pointer" },
       recentDays: { color: "#099600", cursor: "pointer" },
+      allTime: { color: "#a5a5a5", cursor: "pointer" },
+      uiTable: 'table table-striped table-dark',
+      uiToggleBox: { background: "#2e3235"},      
+      uiHeader: { color: "#222629"},
+      uiMoon: { color: "#f2f2f2" },
+      uiSun: { color: "#222629" },
+      uiToggle: 'knob slide-l',
+      uiBody: '#494949',      
+      isLoaded: false,            
       users: []
     };
     this.callAllTime = this.callAllTime.bind(this);
     this.callRecent = this.callRecent.bind(this);
-  }
+    this.lightTheme = this.lightTheme.bind(this);
+    this.darkTheme = this.darkTheme.bind(this);
+  }  
 
   callAllTime() {
     fetch("https://fcctop100.herokuapp.com/api/fccusers/top/alltime")
@@ -78,8 +86,10 @@ class Leaderboards extends React.Component {
     });
   }
 
-  componentDidMount() {
-    fetch(this.state.link)
+  componentDidMount() {    
+    fetch(this.state.link, {
+      //cache: 'force-cache'
+    })
       .then(res => res.json())
       .then(result => {
       this.setState({
@@ -88,9 +98,36 @@ class Leaderboards extends React.Component {
       });
     });
   }
-
+  
+  lightTheme() {
+    this.setState({
+      uiTable: 'table table-striped table-light',
+      uiToggleBox: { background: "#f2f2f2"},      
+      uiHeader: { color: "#f2f2f2"},
+      uiMoon: { color: "#222629" },
+      uiSun: { color: "#f2f2f2" },
+      uiToggle: 'knob slide-r',
+      uiBody: "#d6d6d6",
+      isLoaded: true,
+    });
+  }
+  
+  darkTheme() {
+    this.setState({      
+      uiTable: 'table table-striped table-dark',
+      uiToggleBox: { background: "#2e3235" },      
+      uiHeader: { color: "#222629"},
+      uiMoon: { color: "#f2f2f2" },
+      uiSun: { color: "#222629" },
+      uiToggle: 'knob slide-l',
+      uiBody: "#494949",
+      isLoaded: true,
+    });
+  }
+  
   render() {
-    const { isLoaded, link, users } = this.state;
+    document.body.style.backgroundColor = this.state.uiBody;
+    const { isLoaded, link, allTime, recentDays, users } = this.state;
     let fccLink = "https://www.freecodecamp.org/";
     const active = { color: "#099600", cursor: "pointer" };
     //console.log(users);
@@ -115,14 +152,14 @@ class Leaderboards extends React.Component {
         </td>
         <td
           id="recent"
-          style={this.state.recentDays}
+          style={recentDays}
           key={user.username + user.recent}
           >
           {user.recent}
         </td>
         <td
           id="alltime"
-          style={this.state.allTime}
+          style={allTime}
           key={user.username + "alltime"}
           >
           {user.alltime}
@@ -134,35 +171,67 @@ class Leaderboards extends React.Component {
       return <div style={active}>Loading...</div>;
     } else {
       return (
-        <div class="table-responsive">
+        <div>
           <div class="header">
-            <h1>Leaderboard</h1>
+            <div class="row">
+              <div class="col">
+              </div>
+              <div class="col">
+                <h1 style={this.state.uiHeader}>Leaderboard</h1>
+              </div>
+              <div class="col">
+                <div class="toggle">
+                  <div class="row">
+                    <div class="col-" onClick={this.darkTheme} style={this.state.uiMoon}>
+                      <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="col-">
+                      <div class="switch" style={this.state.uiToggleBox}>
+                        <div className={this.state.uiToggle}>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-" onClick={this.lightTheme} style={this.state.uiSun}>
+                      <i class="fas fa-sun"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <table class="table table-striped table-dark">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th id="names">Camper's name</th>
-                <th
-                  id="30-days"
-                  style={this.state.recentDays}
-                  onClick={this.callRecent}
-                  >
-                  Past 30 days points
-                </th>
-                <th
-                  id="all-time"
+          <div class="table-responsive">
+            <table className={this.state.uiTable}>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th id="names">Camper's name</th>
+                  <th
+                    id="30-days"
+                    style={this.state.recentDays}
+                    onClick={this.callRecent}
+                    >
+                    Past 30 days points
+                  </th>
+                  <th id="all-time" style={this.state.allTime} onClick={this.callAllTime}>
+                    All time points
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{userStats}</tbody>
+            </table>
+            <div class="footer">
+              <h1>
+                Designed and coded by{" "}
+                <a
                   style={this.state.allTime}
-                  onClick={this.callAllTime}
+                  href="https://github.com/Madness2aMaze"
+                  target="_blank"
+                  title="©2018 Cătălin Anghel-Ursu @Madness2aMaze - All Rights Reserved"
                   >
-                  All time points
-                </th>
-              </tr>
-            </thead>
-            <tbody>{userStats}</tbody>
-          </table>
-          <div class="footer">
-            <h1>Designed and coded by <a style={this.state.allTime} href="https://github.com/Madness2aMaze" target="_blank" title="©2018 Cătălin Anghel-Ursu @Madness2aMaze - All Rights Reserved">Madness2aMaze © 2018 - All Rights Reserved</a></h1>
+                  Madness2aMaze © 2018 - All Rights Reserved
+                </a>
+              </h1>
+            </div>
           </div>
         </div>
       );
